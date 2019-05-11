@@ -1,12 +1,14 @@
 ﻿using deltaq.BsDiff;
 using DiscUtils;
 using DiscUtils.Fat;
+using Mono.Cecil;
 using SharedTypes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -159,6 +161,31 @@ namespace PatchBuilder {
         internal void Save(string fileName) {
             Patch.Save(fileName);
         }
+
+        internal void Pack(string exeFilename, string saveFilename) {
+            var patch = Patch.Serialize();
+            var resourceContainerName = "JPGamePatcherS.Resources.resources";
+
+            var ms = new MemoryStream();
+            var writer = new ResourceWriter(ms);
+            writer.AddResource("EmbeddedPatch", patch);
+            writer.Generate();
+
+            var definition = AssemblyDefinition.ReadAssembly(exeFilename);
+
+            for (var i = 0; i < definition.MainModule.Resources.Count; i++) {
+                Debug.WriteLine(definition.MainModule.Resources[i].Name);
+                if (definition.MainModule.Resources[i].Name == resourceContainerName) {
+                    definition.MainModule.Resources.RemoveAt(i);
+                    break;
+                }
+            }
+
+            var er = new EmbeddedResource(resourceContainerName, ManifestResourceAttributes.Public, ms.ToArray());
+            definition.MainModule.Resources.Add(er);
+            definition.Write(saveFilename);
+        }
+
 
         internal bool AddSource(string folderName, out string err) {
             err = "";

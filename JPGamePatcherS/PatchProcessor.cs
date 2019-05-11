@@ -36,6 +36,10 @@ namespace JPGamePatcherS {
         internal void LoadPatch(string path) {
             patchContainer = PatchContainer.Load(path);
             if (patchContainer == null) throw new Exception("Malformed patch file");
+            Init();
+        }
+
+        private void Init() {
             GameDescription = patchContainer.Description;
             if (patchContainer.LogoImage != null && patchContainer.LogoImage.Length > 0) {
                 GameLogo = new Bitmap(new MemoryStream(patchContainer.LogoImage));
@@ -43,6 +47,12 @@ namespace JPGamePatcherS {
                 GameLogo = null;
             }
             TotalFiles = patchContainer.TotalSourceFiles();
+        }
+
+        internal void LoadPatch(byte[] patch) {
+            patchContainer = PatchContainer.Load(patch);
+            if (patchContainer == null) throw new Exception("Malformed patch data");
+            Init();
         }
 
         internal void SetSourceFolder(string path) {

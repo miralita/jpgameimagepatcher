@@ -54,6 +54,17 @@ namespace SharedTypes {
             }
         }
 
+        public byte[] Serialize() {
+            using (var ms = new MemoryStream()) {
+                var serializer = new BinaryFormatter {
+                    AssemblyFormat =
+                    System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                };
+                serializer.Serialize(ms, this);
+                return ms.ToArray();
+            }
+        }
+
         public static PatchContainer Load(string filename) {
             var serializer = new BinaryFormatter {
                 AssemblyFormat =
@@ -62,6 +73,18 @@ namespace SharedTypes {
             };
             using (var fs = File.OpenRead(filename)) {
                 var data = serializer.Deserialize(fs);
+                return (PatchContainer)data;
+            }
+        }
+
+        public static PatchContainer Load(byte[] patch) {
+            var serializer = new BinaryFormatter {
+                AssemblyFormat =
+                System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
+                Binder = new DeserializationBinder()
+            };
+            using (var ms = new MemoryStream(patch)) {
+                var data = serializer.Deserialize(ms);
                 return (PatchContainer)data;
             }
         }

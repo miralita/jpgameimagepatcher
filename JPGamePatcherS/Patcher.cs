@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -24,8 +25,21 @@ namespace JPGamePatcherS {
             patchProcessor.Finished += Finished;
             patchProcessor.FinishedError += FinishedError;
 
+            var patch = Resources.EmbeddedPatch;
+            if (patch.Length > 0) {
+                try {
+                    LoadPatch(patch);
+                } catch(Exception ex) {
+                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                }
+            }
+
             var path = Path.GetDirectoryName(Application.ExecutablePath);
             var patches = Directory.GetFiles(path, "*.ptch");
+            
             if (patches.Length == 1) {
                 try {
                     LoadPatch(patches[0]);
@@ -58,6 +72,17 @@ namespace JPGamePatcherS {
             initialDirectory = Path.GetDirectoryName(fname);
             SelectSource.Enabled = true;
             PatchPath.Text = fname;
+        }
+
+        private void LoadPatch(byte[] patch) {
+            patchProcessor.LoadPatch(patch);
+            if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
+                GameDescription.Text = patchProcessor.GameDescription;
+            }
+            if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
+            initialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
+            SelectSource.Enabled = true;
+            PatchPath.Text = "[Embedded]";
         }
 
         private void SelectSource_Click(object sender, EventArgs e) {

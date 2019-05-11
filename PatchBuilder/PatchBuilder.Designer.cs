@@ -38,6 +38,8 @@
             this.SavePatch = new System.Windows.Forms.Button();
             this.ShowLog = new System.Windows.Forms.Button();
             this.SaveLog = new System.Windows.Forms.Button();
+            this.PackWithExe = new System.Windows.Forms.CheckBox();
+            this.ExecutablePath = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.GameLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,7 +60,7 @@
             this.GameDescription.Location = new System.Drawing.Point(13, 250);
             this.GameDescription.Multiline = true;
             this.GameDescription.Name = "GameDescription";
-            this.GameDescription.Size = new System.Drawing.Size(820, 250);
+            this.GameDescription.Size = new System.Drawing.Size(820, 335);
             this.GameDescription.TabIndex = 1;
             this.GameDescription.Text = "Enter description here...";
             // 
@@ -75,7 +77,7 @@
             // 
             // GameLogoName
             // 
-            this.GameLogoName.Location = new System.Drawing.Point(840, 69);
+            this.GameLogoName.Location = new System.Drawing.Point(840, 71);
             this.GameLogoName.Name = "GameLogoName";
             this.GameLogoName.Size = new System.Drawing.Size(736, 50);
             this.GameLogoName.TabIndex = 3;
@@ -84,7 +86,7 @@
             // 
             // SelectSourceFolder
             // 
-            this.SelectSourceFolder.Location = new System.Drawing.Point(839, 131);
+            this.SelectSourceFolder.Location = new System.Drawing.Point(840, 129);
             this.SelectSourceFolder.Name = "SelectSourceFolder";
             this.SelectSourceFolder.Size = new System.Drawing.Size(737, 50);
             this.SelectSourceFolder.TabIndex = 4;
@@ -96,7 +98,7 @@
             // SelectFolderPatched
             // 
             this.SelectFolderPatched.Enabled = false;
-            this.SelectFolderPatched.Location = new System.Drawing.Point(840, 250);
+            this.SelectFolderPatched.Location = new System.Drawing.Point(840, 245);
             this.SelectFolderPatched.Name = "SelectFolderPatched";
             this.SelectFolderPatched.Size = new System.Drawing.Size(737, 50);
             this.SelectFolderPatched.TabIndex = 6;
@@ -107,7 +109,7 @@
             // 
             // SourceFolderName
             // 
-            this.SourceFolderName.Location = new System.Drawing.Point(841, 188);
+            this.SourceFolderName.Location = new System.Drawing.Point(840, 187);
             this.SourceFolderName.Name = "SourceFolderName";
             this.SourceFolderName.Size = new System.Drawing.Size(735, 50);
             this.SourceFolderName.TabIndex = 5;
@@ -117,7 +119,7 @@
             // MakePatch
             // 
             this.MakePatch.Enabled = false;
-            this.MakePatch.Location = new System.Drawing.Point(839, 369);
+            this.MakePatch.Location = new System.Drawing.Point(840, 361);
             this.MakePatch.Name = "MakePatch";
             this.MakePatch.Size = new System.Drawing.Size(737, 50);
             this.MakePatch.TabIndex = 8;
@@ -128,7 +130,7 @@
             // 
             // PatchedFolderName
             // 
-            this.PatchedFolderName.Location = new System.Drawing.Point(840, 307);
+            this.PatchedFolderName.Location = new System.Drawing.Point(840, 303);
             this.PatchedFolderName.Name = "PatchedFolderName";
             this.PatchedFolderName.Size = new System.Drawing.Size(737, 50);
             this.PatchedFolderName.TabIndex = 7;
@@ -138,7 +140,7 @@
             // SavePatch
             // 
             this.SavePatch.Enabled = false;
-            this.SavePatch.Location = new System.Drawing.Point(839, 446);
+            this.SavePatch.Location = new System.Drawing.Point(840, 535);
             this.SavePatch.Name = "SavePatch";
             this.SavePatch.Size = new System.Drawing.Size(174, 50);
             this.SavePatch.TabIndex = 9;
@@ -150,7 +152,7 @@
             // ShowLog
             // 
             this.ShowLog.Enabled = false;
-            this.ShowLog.Location = new System.Drawing.Point(1030, 446);
+            this.ShowLog.Location = new System.Drawing.Point(1029, 535);
             this.ShowLog.Name = "ShowLog";
             this.ShowLog.Size = new System.Drawing.Size(174, 50);
             this.ShowLog.TabIndex = 10;
@@ -162,7 +164,7 @@
             // SaveLog
             // 
             this.SaveLog.Enabled = false;
-            this.SaveLog.Location = new System.Drawing.Point(1219, 446);
+            this.SaveLog.Location = new System.Drawing.Point(1218, 535);
             this.SaveLog.Name = "SaveLog";
             this.SaveLog.Size = new System.Drawing.Size(174, 50);
             this.SaveLog.TabIndex = 11;
@@ -171,11 +173,32 @@
             this.SaveLog.UseVisualStyleBackColor = true;
             this.SaveLog.Click += new System.EventHandler(this.SaveLog_Click);
             // 
+            // PackWithExe
+            // 
+            this.PackWithExe.Location = new System.Drawing.Point(840, 419);
+            this.PackWithExe.Name = "PackWithExe";
+            this.PackWithExe.Size = new System.Drawing.Size(410, 50);
+            this.PackWithExe.TabIndex = 12;
+            this.PackWithExe.Text = "Pack together with patcher executable";
+            this.PackWithExe.UseVisualStyleBackColor = true;
+            this.PackWithExe.CheckedChanged += new System.EventHandler(this.PackWithExe_CheckedChanged);
+            // 
+            // ExecutablePath
+            // 
+            this.ExecutablePath.Location = new System.Drawing.Point(840, 477);
+            this.ExecutablePath.Name = "ExecutablePath";
+            this.ExecutablePath.Size = new System.Drawing.Size(737, 50);
+            this.ExecutablePath.TabIndex = 13;
+            this.ExecutablePath.Text = "...";
+            this.ExecutablePath.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // PatchBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1590, 508);
+            this.ClientSize = new System.Drawing.Size(1590, 595);
+            this.Controls.Add(this.ExecutablePath);
+            this.Controls.Add(this.PackWithExe);
             this.Controls.Add(this.SaveLog);
             this.Controls.Add(this.ShowLog);
             this.Controls.Add(this.SavePatch);
@@ -215,6 +238,8 @@
         private System.Windows.Forms.Button SavePatch;
         private System.Windows.Forms.Button ShowLog;
         private System.Windows.Forms.Button SaveLog;
+        private System.Windows.Forms.CheckBox PackWithExe;
+        private System.Windows.Forms.Label ExecutablePath;
     }
 }
 

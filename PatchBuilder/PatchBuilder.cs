@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -146,8 +147,29 @@ namespace PatchBuilder {
                 FilterIndex = 0,
                 DefaultExt = "ptch"
             };
+            if (PackWithExe.Checked) {
+                dialog.Filter = "Executable files (*.exe|*.exe|All files (*.*)|*.*";
+                dialog.DefaultExt = "exe";
+            }
             if (dialog.ShowDialog() == DialogResult.OK) {
-                patchProcessor.Save(dialog.FileName);
+                if (PackWithExe.Checked) {
+                    patchProcessor.Pack(ExecutablePath.Text, dialog.FileName);
+                } else {
+                    patchProcessor.Save(dialog.FileName);
+                }
+            }
+        }
+
+        private void PackWithExe_CheckedChanged(object sender, EventArgs e) {
+            if (PackWithExe.Checked) {
+                var dialog = new OpenFileDialog {
+                    Title = "Choose patcher executable",
+                    Filter = "Executable files (*.exe|*.exe|All files (*.*)|*.*",
+                    FilterIndex = 0,
+                };
+                if (dialog.ShowDialog() == DialogResult.OK) {
+                    ExecutablePath.Text = dialog.FileName;
+                }
             }
         }
     }
