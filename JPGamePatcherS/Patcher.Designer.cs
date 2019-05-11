@@ -153,7 +153,9 @@
             this.Controls.Add(this.GameDescription);
             this.Controls.Add(this.GameLogo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Patcher";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Japanese Game Patcher (simple)";
             this.Load += new System.EventHandler(this.Patcher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GameLogo)).EndInit();

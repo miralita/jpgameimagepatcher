@@ -189,6 +189,7 @@
             this.Controls.Add(this.GameDescription);
             this.Controls.Add(this.GameLogo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "PatchBuilder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PatchBuilder";
