@@ -13,6 +13,7 @@ namespace SharedTypes {
         public string Name;
         public byte[] Patch;
         public string OriginalMd5Sum;
+        public string PatchedMd5Sum;
         public bool Processed;
         public bool Found;
 

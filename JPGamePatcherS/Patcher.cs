@@ -26,9 +26,11 @@ namespace JPGamePatcherS {
             patchProcessor.FinishedError += FinishedError;
 
             var patch = Resources.EmbeddedPatch;
+            var ok = false;
             if (patch.Length > 0) {
                 try {
                     LoadPatch(patch);
+                    ok = true;
                 } catch(Exception ex) {
                     Debug.WriteLine(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
@@ -37,13 +39,15 @@ namespace JPGamePatcherS {
                 }
             }
 
-            var path = Path.GetDirectoryName(Application.ExecutablePath);
-            var patches = Directory.GetFiles(path, "*.ptch");
-            
-            if (patches.Length == 1) {
-                try {
-                    LoadPatch(patches[0]);
-                } catch(Exception) { }
+            if (!ok) {
+                var path = Path.GetDirectoryName(Application.ExecutablePath);
+                var patches = Directory.GetFiles(path, "*.ptch");
+
+                if (patches.Length == 1) {
+                    try {
+                        LoadPatch(patches[0]);
+                    } catch (Exception) { }
+                }
             }
         }
 

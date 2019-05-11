@@ -117,6 +117,7 @@ namespace PatchBuilder {
                         if (fileInfo.OriginalMd5Sum != patchedMd5) {
                             UppendLog($"[PATCH] {file}");
                             fileInfo.Action = PatchAction.Patch;
+                            fileInfo.PatchedMd5Sum = patchedMd5;
                             using (var ms = new MemoryStream()) {
                                 BsDiff.Create(Utils.DumpStream(srcfh), Utils.DumpStream(dstfh), ms);
                                 fileInfo.Patch = ms.ToArray();
@@ -147,7 +148,6 @@ namespace PatchBuilder {
                 using (var disk = VirtualDisk.OpenDisk(img, FileAccess.Read)) {
                     var param = new FileSystemParameters();
                     param.SectorSize = disk.SectorSize;
-                    //param.SectorSize = 1024;
                     param.FileNameEncoding = Encoding.GetEncoding("shift-jis");
                     using (var fat = new PC98FatFileSystem(disk.Content, param)) {
                         var files = fat.GetFiles(@"\");

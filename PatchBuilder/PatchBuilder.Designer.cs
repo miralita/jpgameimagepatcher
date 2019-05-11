@@ -50,6 +50,7 @@
             this.GameLogo.Location = new System.Drawing.Point(13, 13);
             this.GameLogo.Name = "GameLogo";
             this.GameLogo.Size = new System.Drawing.Size(820, 230);
+            this.GameLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.GameLogo.TabIndex = 0;
             this.GameLogo.TabStop = false;
             this.ToolTips.SetToolTip(this.GameLogo, "Click to choose picture (410x115)");

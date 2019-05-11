@@ -103,6 +103,7 @@ namespace JPGamePatcherS {
             PC98FatFileSystem dstFat = null;
             int currentN = 0;
             int totalFiles = 0;
+            string dstName = "";
             try {
                 foreach (var file in patchContainer.PatchData) {
                     if (file.ImageNum != currentN) {
@@ -110,8 +111,9 @@ namespace JPGamePatcherS {
                         if (src != null) src.Dispose();
                         if (dstFat != null) dstFat.Dispose();
                         if (dst != null) dst.Dispose();
+                        if (!string.IsNullOrEmpty(dstName)) CheckConsistency(currentN, dstName);
                         currentN = file.ImageNum;
-                        FindImageByNum(currentN, out src, out dst, out srcFat, out dstFat);
+                        FindImageByNum(currentN, out dstName, out src, out dst, out srcFat, out dstFat);
                     }
                     var data = CheckSourceFile(srcFat, file.Name, file.OriginalMd5Sum);
                     if (file.Action == PatchAction.Original) {
@@ -128,6 +130,28 @@ namespace JPGamePatcherS {
                 if (src != null) src.Dispose();
                 if (dstFat != null) dstFat.Dispose();
                 if (dst != null) dst.Dispose();
+                if (!string.IsNullOrEmpty(dstName)) CheckConsistency(currentN, dstName);
+            }
+        }
+
+        private void CheckConsistency(int currentN, string dstName) {
+            using (var dst = VirtualDisk.OpenDisk(dstName, FileAccess.ReadWrite)) {
+                using (var dstFat = new PC98FatFileSystem(dst.Content, new FileSystemParameters {
+                    SectorSize = dst.SectorSize,
+                    FileNameEncoding = Encoding.GetEncoding("shift-jis")
+                })) {
+                    for (var i = 0; i < patchContainer.PatchData.Count; i++) {
+                        var file = patchContainer.PatchData[i];
+                        if (file.ImageNum != currentN) continue;
+                        var sum = file.Action == PatchAction.Patch ? file.PatchedMd5Sum : file.OriginalMd5Sum;
+                        using (var dstfh = dstFat.OpenFile(file.Name, FileMode.Open)) {
+                            var md5 = Utils.Md5sum(dstfh);
+                            if (sum != md5) {
+                                throw new Exception($"Broken output file {file.Name} in image {dstName}");
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -150,7 +174,7 @@ namespace JPGamePatcherS {
             }
         }
 
-        private void FindImageByNum(int currentN, out VirtualDisk src, out VirtualDisk dst, out PC98FatFileSystem srcFat, out PC98FatFileSystem dstFat) {
+        private void FindImageByNum(int currentN, out string dstName, out VirtualDisk src, out VirtualDisk dst, out PC98FatFileSystem srcFat, out PC98FatFileSystem dstFat) {
             string srcName = "";
             foreach (var fname in sourceImages) {
                 if (fname.Contains(currentN.ToString())) {
@@ -163,7 +187,7 @@ namespace JPGamePatcherS {
             }
             if (string.IsNullOrEmpty(srcName)) throw new FileNotFoundException($"Can't find source image file with number {currentN}");
             src = VirtualDisk.OpenDisk(srcName, FileAccess.Read);
-            var dstName = Path.Combine(destinationFolder, Path.GetFileName(srcName));
+            dstName = Path.Combine(destinationFolder, Path.GetFileName(srcName));
             dst = VirtualDisk.OpenDisk(dstName, FileAccess.ReadWrite);
             srcFat = new PC98FatFileSystem(src.Content, new FileSystemParameters {
                 SectorSize = src.SectorSize,

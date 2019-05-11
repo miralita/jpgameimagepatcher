@@ -44,6 +44,7 @@
             this.GameLogo.Location = new System.Drawing.Point(12, 12);
             this.GameLogo.Name = "GameLogo";
             this.GameLogo.Size = new System.Drawing.Size(820, 230);
+            this.GameLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.GameLogo.TabIndex = 1;
             this.GameLogo.TabStop = false;
             // 
