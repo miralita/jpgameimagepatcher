@@ -116,6 +116,7 @@
             // 
             // MakePatch
             // 
+            this.MakePatch.Enabled = false;
             this.MakePatch.Location = new System.Drawing.Point(839, 369);
             this.MakePatch.Name = "MakePatch";
             this.MakePatch.Size = new System.Drawing.Size(737, 50);

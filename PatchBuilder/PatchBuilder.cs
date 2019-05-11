@@ -91,10 +91,10 @@ namespace PatchBuilder {
 
         private void MakePatch_Click(object sender, EventArgs e) {
             if (GameDescription.Text == defaultDescription) {
-                MessageBox.Show("Please enter description", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                patchProcessor.Description = "";
+            } else {
+                patchProcessor.Description = GameDescription.Text;
             }
-            patchProcessor.Description = GameDescription.Text;
             LockControls();
             //this.Hide();
             patchProcessor.Run();

@@ -37,7 +37,11 @@ namespace JPGamePatcherS {
             patchContainer = PatchContainer.Load(path);
             if (patchContainer == null) throw new Exception("Malformed patch file");
             GameDescription = patchContainer.Description;
-            GameLogo = new Bitmap(new MemoryStream(patchContainer.LogoImage));
+            if (patchContainer.LogoImage != null && patchContainer.LogoImage.Length > 0) {
+                GameLogo = new Bitmap(new MemoryStream(patchContainer.LogoImage));
+            } else {
+                GameLogo = null;
+            }
             TotalFiles = patchContainer.TotalSourceFiles();
         }
 

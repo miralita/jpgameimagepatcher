@@ -66,7 +66,9 @@ namespace PatchBuilder {
         private void MakePatch() {
             int imageN = 0;
             Patch = new PatchContainer();
-            Patch.LogoImage = File.ReadAllBytes(LogoPath);
+            if (!string.IsNullOrEmpty(LogoPath) && File.Exists(LogoPath)) {
+                Patch.LogoImage = File.ReadAllBytes(LogoPath);
+            }
             Patch.Description = Description;
             foreach (var img in sourceImages) {
                 UppendLog("======================================================");

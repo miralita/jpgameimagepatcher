@@ -35,8 +35,10 @@ namespace JPGamePatcherS {
             if (dialog.ShowDialog() == DialogResult.OK) {
                 try {
                     patchProcessor.LoadPatch(dialog.FileName);
-                    GameDescription.Text = patchProcessor.GameDescription;
-                    GameLogo.Image = patchProcessor.GameLogo;
+                    if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
+                        GameDescription.Text = patchProcessor.GameDescription;
+                    }
+                    if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
                     initialDirectory = Path.GetDirectoryName(dialog.FileName);
                     SelectSource.Enabled = true;
                     PatchPath.Text = dialog.FileName;
