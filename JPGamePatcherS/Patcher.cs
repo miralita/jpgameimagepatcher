@@ -23,6 +23,14 @@ namespace JPGamePatcherS {
             patchProcessor.UpdateProgress += UpdateProgress;
             patchProcessor.Finished += Finished;
             patchProcessor.FinishedError += FinishedError;
+
+            var path = Path.GetDirectoryName(Application.ExecutablePath);
+            var patches = Directory.GetFiles(path, "*.ptch");
+            if (patches.Length == 1) {
+                try {
+                    LoadPatch(patches[0]);
+                } catch(Exception) { }
+            }
         }
 
         private void SelectPatch_Click(object sender, EventArgs e) {
@@ -34,18 +42,22 @@ namespace JPGamePatcherS {
             };
             if (dialog.ShowDialog() == DialogResult.OK) {
                 try {
-                    patchProcessor.LoadPatch(dialog.FileName);
-                    if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
-                        GameDescription.Text = patchProcessor.GameDescription;
-                    }
-                    if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
-                    initialDirectory = Path.GetDirectoryName(dialog.FileName);
-                    SelectSource.Enabled = true;
-                    PatchPath.Text = dialog.FileName;
+                    LoadPatch(dialog.FileName);
                 } catch (Exception ex) {
                     MessageBox.Show($"Can't load patch file: {ex.Message}. Please select another file", "Can't load patch file", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void LoadPatch(string fname) {
+            patchProcessor.LoadPatch(fname);
+            if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
+                GameDescription.Text = patchProcessor.GameDescription;
+            }
+            if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
+            initialDirectory = Path.GetDirectoryName(fname);
+            SelectSource.Enabled = true;
+            PatchPath.Text = fname;
         }
 
         private void SelectSource_Click(object sender, EventArgs e) {
