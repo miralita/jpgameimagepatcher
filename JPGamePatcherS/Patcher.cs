@@ -31,6 +31,7 @@ namespace JPGamePatcherS {
                 try {
                     LoadPatch(patch);
                     ok = true;
+                    SelectPatch.Enabled = false;
                 } catch(Exception ex) {
                     Debug.WriteLine(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
@@ -69,23 +70,28 @@ namespace JPGamePatcherS {
 
         private void LoadPatch(string fname) {
             patchProcessor.LoadPatch(fname);
+            InitPatchData();
+            initialDirectory = Path.GetDirectoryName(fname);
+            PatchPath.Text = fname;
+        }
+
+        private void InitPatchData() {
             if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
                 GameDescription.Text = patchProcessor.GameDescription;
             }
-            if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
-            initialDirectory = Path.GetDirectoryName(fname);
+            if (!string.IsNullOrEmpty(patchProcessor.GameTitle)) {
+                this.Text = patchProcessor.GameTitle;
+            } else {
+                this.Text = "Game Patcher";
+            }
             SelectSource.Enabled = true;
-            PatchPath.Text = fname;
+            if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
         }
 
         private void LoadPatch(byte[] patch) {
             patchProcessor.LoadPatch(patch);
-            if (!string.IsNullOrEmpty(patchProcessor.GameDescription)) {
-                GameDescription.Text = patchProcessor.GameDescription;
-            }
-            if (patchProcessor.GameLogo != null) GameLogo.Image = patchProcessor.GameLogo;
+            InitPatchData();
             initialDirectory = Path.GetDirectoryName(Application.ExecutablePath);
-            SelectSource.Enabled = true;
             PatchPath.Text = "[Embedded]";
         }
 

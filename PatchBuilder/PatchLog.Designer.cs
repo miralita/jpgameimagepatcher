@@ -59,7 +59,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "PatchLog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PatchLog";
+            this.Text = "PatchLog - Press ESC to hide";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PatchLog_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PatchLog_KeyDown);
             this.ResumeLayout(false);

@@ -14,6 +14,7 @@ namespace SharedTypes {
         public decimal PatchContainerVersion;
         public List<PatchedFile> PatchData;
         public long TotalSize = 0;
+        public string Title;
         public string Description;
         public byte[] LogoImage;
         public string Platform;

@@ -40,6 +40,7 @@
             this.SaveLog = new System.Windows.Forms.Button();
             this.PackWithExe = new System.Windows.Forms.CheckBox();
             this.ExecutablePath = new System.Windows.Forms.Label();
+            this.Title = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.GameLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,10 +59,10 @@
             // GameDescription
             // 
             this.GameDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GameDescription.Location = new System.Drawing.Point(13, 250);
+            this.GameDescription.Location = new System.Drawing.Point(13, 305);
             this.GameDescription.Multiline = true;
             this.GameDescription.Name = "GameDescription";
-            this.GameDescription.Size = new System.Drawing.Size(820, 335);
+            this.GameDescription.Size = new System.Drawing.Size(820, 280);
             this.GameDescription.TabIndex = 1;
             this.GameDescription.Text = "Enter description here...";
             // 
@@ -193,11 +194,23 @@
             this.ExecutablePath.Text = "...";
             this.ExecutablePath.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
+            // Title
+            // 
+            this.Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Title.Location = new System.Drawing.Point(12, 249);
+            this.Title.Multiline = true;
+            this.Title.Name = "Title";
+            this.Title.Size = new System.Drawing.Size(821, 50);
+            this.Title.TabIndex = 14;
+            this.Title.Text = "Enter title here...";
+            this.Title.WordWrap = false;
+            // 
             // PatchBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1590, 595);
+            this.Controls.Add(this.Title);
             this.Controls.Add(this.ExecutablePath);
             this.Controls.Add(this.PackWithExe);
             this.Controls.Add(this.SaveLog);
@@ -241,6 +254,7 @@
         private System.Windows.Forms.Button SaveLog;
         private System.Windows.Forms.CheckBox PackWithExe;
         private System.Windows.Forms.Label ExecutablePath;
+        private System.Windows.Forms.TextBox Title;
     }
 }
 

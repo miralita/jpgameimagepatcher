@@ -157,7 +157,7 @@
             this.MaximizeBox = false;
             this.Name = "Patcher";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Japanese Game Patcher (simple)";
+            this.Text = "Game Patcher";
             this.Load += new System.EventHandler(this.Patcher_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GameLogo)).EndInit();
             this.ResumeLayout(false);

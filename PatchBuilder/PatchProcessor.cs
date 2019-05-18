@@ -26,6 +26,8 @@ namespace PatchBuilder {
         public string PatchedFolder { get; set; }
         public string Description { get; set; }
 
+        public string Title { get; set; }
+
         public delegate void StrDataDelegate(string data);
         public event StrDataDelegate UppendLog = delegate{};
 
@@ -72,6 +74,7 @@ namespace PatchBuilder {
                 Patch.LogoImage = File.ReadAllBytes(LogoPath);
             }
             Patch.Description = Description;
+            Patch.Title = Title;
             foreach (var img in sourceImages) {
                 UppendLog("======================================================");
                 UppendLog($"Working on {img}...");

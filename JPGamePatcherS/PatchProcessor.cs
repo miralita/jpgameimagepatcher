@@ -16,6 +16,7 @@ namespace JPGamePatcherS {
     class PatchProcessor {
         internal Bitmap GameLogo { get; private set; }
         internal string GameDescription { get; private set; }
+        internal string GameTitle { get; private set; }
         internal bool NeedOverwrite { get; private set; }
         internal int TotalFiles { get; private set; }
 
@@ -41,6 +42,11 @@ namespace JPGamePatcherS {
 
         private void Init() {
             GameDescription = patchContainer.Description;
+            if (string.IsNullOrEmpty(patchContainer.Title)) {
+                GameTitle = GameDescription;
+            } else {
+                GameTitle = patchContainer.Title;
+            }
             if (patchContainer.LogoImage != null && patchContainer.LogoImage.Length > 0) {
                 GameLogo = new Bitmap(new MemoryStream(patchContainer.LogoImage));
             } else {

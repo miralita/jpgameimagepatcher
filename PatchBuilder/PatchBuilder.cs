@@ -15,6 +15,7 @@ namespace PatchBuilder {
     public partial class PatchBuilder : Form {
         PatchProcessor patchProcessor;
         string defaultDescription = "Enter description here...";
+        string defaultTitle = "Enter title here...";
         PatchLog log;
         public PatchBuilder() {
             InitializeComponent();
@@ -95,6 +96,11 @@ namespace PatchBuilder {
                 patchProcessor.Description = "";
             } else {
                 patchProcessor.Description = GameDescription.Text;
+            }
+            if (Title.Text == defaultTitle) {
+                patchProcessor.Title = "";
+            } else {
+                patchProcessor.Title = Title.Text;
             }
             LockControls();
             //this.Hide();
