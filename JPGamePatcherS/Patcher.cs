@@ -15,8 +15,13 @@ namespace JPGamePatcherS {
     public partial class Patcher : Form {
         PatchProcessor patchProcessor;
         string initialDirectory = "";
+        string defaultSourceText = "Choose directory with original game disk image files (hdm, xdf, dim)";
+        string defaultOutputText = "Choose output directory to save patched disks";
+        bool embedded = false;
         public Patcher() {
             InitializeComponent();
+            SourceFolder.Text = defaultSourceText;
+            DestinationFolder.Text = defaultOutputText;
         }
 
         private void Patcher_Load(object sender, EventArgs e) {
@@ -32,6 +37,7 @@ namespace JPGamePatcherS {
                     LoadPatch(patch);
                     ok = true;
                     SelectPatch.Enabled = false;
+                    embedded = true;
                 } catch(Exception ex) {
                     Debug.WriteLine(ex.Message);
                     Debug.WriteLine(ex.StackTrace);
@@ -117,9 +123,9 @@ namespace JPGamePatcherS {
             SelectSource.Enabled = false;
             SelectPatch.Enabled = true;
             PatchPath.Text = "...";
-            SourceFolder.Text = "...";
+            SourceFolder.Text = defaultSourceText;
             SelectDestination.Enabled = false;
-            DestinationFolder.Text = "...";
+            DestinationFolder.Text = defaultOutputText;
             Patch.Enabled = false;
             Progress.Value = 0;
         }
@@ -167,7 +173,8 @@ namespace JPGamePatcherS {
         private void Finished() {
             BeginInvoke((Action)(() => {
                 MessageBox.Show("Patch finished successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RestoreInitialState();
+                if (!embedded) RestoreInitialState();
+                else this.Close();
             }));
         }
     }

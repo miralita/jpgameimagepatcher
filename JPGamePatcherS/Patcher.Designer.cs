@@ -52,14 +52,14 @@
             // 
             this.GameDescription.Location = new System.Drawing.Point(12, 249);
             this.GameDescription.Name = "GameDescription";
-            this.GameDescription.Size = new System.Drawing.Size(820, 114);
+            this.GameDescription.Size = new System.Drawing.Size(820, 259);
             this.GameDescription.TabIndex = 2;
             this.GameDescription.Text = "...";
             this.GameDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SelectPatch
             // 
-            this.SelectPatch.Location = new System.Drawing.Point(12, 386);
+            this.SelectPatch.Location = new System.Drawing.Point(12, 511);
             this.SelectPatch.Name = "SelectPatch";
             this.SelectPatch.Size = new System.Drawing.Size(287, 50);
             this.SelectPatch.TabIndex = 3;
@@ -71,7 +71,7 @@
             // SelectSource
             // 
             this.SelectSource.Enabled = false;
-            this.SelectSource.Location = new System.Drawing.Point(12, 492);
+            this.SelectSource.Location = new System.Drawing.Point(12, 617);
             this.SelectSource.Name = "SelectSource";
             this.SelectSource.Size = new System.Drawing.Size(287, 50);
             this.SelectSource.TabIndex = 4;
@@ -83,7 +83,7 @@
             // SelectDestination
             // 
             this.SelectDestination.Enabled = false;
-            this.SelectDestination.Location = new System.Drawing.Point(12, 598);
+            this.SelectDestination.Location = new System.Drawing.Point(12, 723);
             this.SelectDestination.Name = "SelectDestination";
             this.SelectDestination.Size = new System.Drawing.Size(287, 50);
             this.SelectDestination.TabIndex = 5;
@@ -95,7 +95,7 @@
             // Patch
             // 
             this.Patch.Enabled = false;
-            this.Patch.Location = new System.Drawing.Point(12, 704);
+            this.Patch.Location = new System.Drawing.Point(12, 829);
             this.Patch.Name = "Patch";
             this.Patch.Size = new System.Drawing.Size(287, 50);
             this.Patch.TabIndex = 6;
@@ -106,7 +106,7 @@
             // 
             // PatchPath
             // 
-            this.PatchPath.Location = new System.Drawing.Point(12, 439);
+            this.PatchPath.Location = new System.Drawing.Point(12, 564);
             this.PatchPath.Name = "PatchPath";
             this.PatchPath.Size = new System.Drawing.Size(820, 50);
             this.PatchPath.TabIndex = 7;
@@ -115,16 +115,15 @@
             // 
             // SourceFolder
             // 
-            this.SourceFolder.Location = new System.Drawing.Point(12, 545);
+            this.SourceFolder.Location = new System.Drawing.Point(12, 670);
             this.SourceFolder.Name = "SourceFolder";
             this.SourceFolder.Size = new System.Drawing.Size(818, 50);
             this.SourceFolder.TabIndex = 8;
-            this.SourceFolder.Text = "...";
             this.SourceFolder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // DestinationFolder
             // 
-            this.DestinationFolder.Location = new System.Drawing.Point(12, 651);
+            this.DestinationFolder.Location = new System.Drawing.Point(12, 776);
             this.DestinationFolder.Name = "DestinationFolder";
             this.DestinationFolder.Size = new System.Drawing.Size(818, 50);
             this.DestinationFolder.TabIndex = 9;
@@ -133,7 +132,7 @@
             // 
             // Progress
             // 
-            this.Progress.Location = new System.Drawing.Point(12, 771);
+            this.Progress.Location = new System.Drawing.Point(12, 896);
             this.Progress.Name = "Progress";
             this.Progress.Size = new System.Drawing.Size(820, 50);
             this.Progress.TabIndex = 10;
@@ -142,7 +141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 836);
+            this.ClientSize = new System.Drawing.Size(842, 953);
             this.Controls.Add(this.Progress);
             this.Controls.Add(this.DestinationFolder);
             this.Controls.Add(this.SourceFolder);

@@ -182,14 +182,22 @@ namespace JPGamePatcherS {
 
         private void FindImageByNum(int currentN, out string dstName, out VirtualDisk src, out VirtualDisk dst, out PC98FatFileSystem srcFat, out PC98FatFileSystem dstFat) {
             string srcName = "";
+            var patchFiles = PatchFiles(currentN);
+            if (patchFiles.Length == 0) throw new FileNotFoundException($"Image with number {currentN} is empty");
             foreach (var fname in sourceImages) {
-                if (fname.Contains(currentN.ToString())) {
+                var disk = VirtualDisk.OpenDisk(fname, FileAccess.Read);
+                var fat = new PC98FatFileSystem(disk.Content, new FileSystemParameters {
+                    SectorSize = disk.SectorSize,
+                    FileNameEncoding = Encoding.GetEncoding("shift-jis")
+                });
+                var files = fat.GetFiles("\\").OrderBy(f => f).ToDictionary(f => f.ToLower(), f => true);
+                var found = patchFiles.All(f => files.ContainsKey(f));
+                if (found) {
                     srcName = fname;
                     break;
-                }
-            }
-            if (string.IsNullOrEmpty(srcName) && sourceImages.Length == 1 && currentN == 1) {
-                srcName = sourceImages[0];
+                } 
+                fat.Dispose();
+                disk.Dispose();
             }
             if (string.IsNullOrEmpty(srcName)) throw new FileNotFoundException($"Can't find source image file with number {currentN}");
             src = VirtualDisk.OpenDisk(srcName, FileAccess.Read);
@@ -203,6 +211,12 @@ namespace JPGamePatcherS {
                 SectorSize = dst.SectorSize,
                 FileNameEncoding = Encoding.GetEncoding("shift-jis")
             });
+        }
+
+        private string[] PatchFiles(int currentN) {
+            return patchContainer.PatchData.Where(f => {
+                return f.ImageNum == currentN;
+            }).Select(f => f.Name.ToLower()).OrderBy(f => f).ToArray();
         }
 
         private void CopySource() {
